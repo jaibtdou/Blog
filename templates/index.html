@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jaibtdou</title>
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+    <div class="rectangle-container">
+        <div class="rectangle">
+            {% for blog in blogs %}
+            <div class="blog-box">
+            <a href="/read/{{blog.rowid}}">
+                <h3>{{ blog.title }}</h3>
+                <p>Time Added: {{ blog.time }}</p>
+                <p>View Count: {{ blog.viewcount }}</p>
+            </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+        // Function to check if an element is in the viewport
+        function isInViewport(element) {
+            var rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        // Function to handle scroll event
+        function handleScroll() {
+            var blogBoxes = document.querySelectorAll('.blog-box');
+            blogBoxes.forEach(function(box) {
+                if (isInViewport(box)) {
+                    box.classList.add('fade-in');
+                }
+            });
+        }
+
+        // Attach scroll event listener
+        window.addEventListener('scroll', handleScroll);
+
+        // Initial check when the page loads
+        handleScroll();
+    </script>
+</body>
+
+</html>
